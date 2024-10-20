@@ -48,17 +48,6 @@ esp_err_t on_start_update(httpd_req_t *req)
     return ESP_OK;
 }
 
-esp_err_t on_check_update(httpd_req_t *req)
-{
-    ESP_LOGI(TAG, "Checking for firmware update");
-    esp_err_t ret = check_firmware_version();
-    if (ret == ESP_OK) {
-        httpd_resp_sendstr(req, "A new firmware version is available.");
-    } else {
-        httpd_resp_sendstr(req, "Current firmware is up to date.");
-    }
-    return ESP_OK;
-}
 
 void init_server()
 {
@@ -80,13 +69,6 @@ void init_server()
         .handler = on_start_update
     };
     httpd_register_uri_handler(server, &start_update_url);
-
-    httpd_uri_t check_update_url = {
-    .uri = "/check_update",
-    .method = HTTP_GET,
-    .handler = on_check_update
-    };
-    httpd_register_uri_handler(server, &check_update_url);
 }
 
 void init_mdns()
