@@ -1,24 +1,13 @@
 #ifndef OTA_H
 #define OTA_H
 
-#include <stdio.h>
-#include <string.h>
-#include "esp_wifi.h"
-#include "esp_event.h"
-#include "nvs_flash.h"
-#include "esp_http_client.h"
-#include "esp_https_ota.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/semphr.h"
-#include "esp_log.h"
-#include "driver/gpio.h"
-#include "protocol_examples_common.h"
+#include "esp_err.h"
 
-extern SemaphoreHandle_t ota_semaphore;
+#define FIRMWARE_UPGRADE_URL "https://drive.usercontent.google.com/u/0/uc?id=1mjbiB7Av9CwUsfri64gGh0DUyjoe4qx4&export=download"
+#define BUFFSIZE 1024
 
-void otaStart(void *params);
-void run_ota(void *params);
-esp_err_t client_event_handler(esp_http_client_event_t *evt);
+void init_ota(void);
+esp_err_t start_ota_update(void);
+esp_err_t check_firmware_version(void);
 
-#endif
+#endif // OTA_H

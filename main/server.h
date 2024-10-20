@@ -9,8 +9,7 @@
 #include "ota.h"
 #include "gpio.h"
 
-#define CURRENT_VERSION 1
-
+#define MDNS_HOSTNAME "hamster-check-in"
 esp_err_t on_default_url(httpd_req_t *req);
 esp_err_t on_check_update(httpd_req_t *req);
 esp_err_t on_start_update(httpd_req_t *req);

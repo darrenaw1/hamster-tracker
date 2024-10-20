@@ -13,19 +13,14 @@ static const char *TAG = "MAIN";
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "new firmware test!");
+    ESP_LOGI(TAG, "new firmware test! 1");
     ESP_ERROR_CHECK(nvs_flash_init());
     wifi_init();
     ESP_ERROR_CHECK(wifi_connect_sta("EE-2HM2Z6", "d9q6fK6v3Ry9agDP", 10000));
 
-    init_mdns();
-    gpioInitialise();
+    init_ota();
     init_server();
-    startPirTask();
-
-    // Initialize OTA semaphore
-    ota_semaphore = xSemaphoreCreateBinary();
-    xTaskCreate(run_ota, "run_ota", 8192, NULL, 5, NULL);
+    init_mdns();
 
     while (1)
     {
