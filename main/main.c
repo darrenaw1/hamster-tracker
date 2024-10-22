@@ -13,17 +13,24 @@ static const char *TAG = "MAIN";
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "hamster-firmware-main");
+ ESP_LOGI(TAG, "hamster-firmware-main");
+    
+    // Initialize NVS
     ESP_ERROR_CHECK(nvs_flash_init());
+    
+    // Initialize WiFi
     wifi_init();
     ESP_ERROR_CHECK(wifi_connect_sta("EE-2HM2Z6", "d9q6fK6v3Ry9agDP", 10000));
 
+    // Initialize OTA (after WiFi is set up)
     init_ota();
+    
+    // Initialize server and mDNS
     init_server();
     init_mdns();
-
+    
     while (1)
     {
-        vTaskDelay(1000/ portTICK_PERIOD_MS);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
